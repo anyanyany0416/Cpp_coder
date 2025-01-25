@@ -13,6 +13,7 @@ int lib_y_or_n[6];//标准库是否存在
 6个标准库从0到5分别是
 cstdlib,cstring,cmath,ctime,algorithm,iomanip;
 */
+//这里还未完成
 int main()
 {
 	memset(lib_y_or_n,0,sizeof(lib_y_or_n));
@@ -64,6 +65,6 @@ int main()
 	cout<<"using namespace std;\n";
 	seedall=seedall%64;//更新种子，防止溢出
 	srand(seedall);
-	
+	//这里还未完成
 	return 0;
 }
