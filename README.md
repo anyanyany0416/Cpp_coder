@@ -1,1 +1,1 @@
-# Cpp_coder
+rand() can write code with Cpp.
