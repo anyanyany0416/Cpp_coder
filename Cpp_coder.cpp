@@ -7,64 +7,125 @@
 #include<algorithm>
 #include<iomanip>
 using namespace std;
-int seedall, i, j=-1, k;
-int lib_y_or_n[6];//标准库是否存在
-/*
-6个标准库从0到5分别是
-cstdlib,cstring,cmath,ctime,algorithm,iomanip;
-*/
-//这里还未完成
-int main()
+struct f_x_						// 自定义函数信息
 {
-	memset(lib_y_or_n,0,sizeof(lib_y_or_n));
-	cout << "seed:";
-	cin >> seedall;				// 输入最初种子
+	int fc;						// 函数类型
+	char fname[10];				// 函数名称
+	char fre[10];				// 返回值
+	char fxname[5][10];			// 形参
+};
+int seedall, h[6], i, j = -1, k, l, m, n;
+int lib_y_or_n[6];				// 标准库是否存在
+/* 
+   6个标准库从0到5分别是
+   cstdlib,cstring,cmath,ctime,algorithm,iomanip; */
+void box()						// 函数内容
+{
+	// 这里未完成
+}
+
+char randstr()					// 实现随机字符串
+{
+	// 这里未完成
+}
+
+void lib_h()					// 函数库
+{
 	srand(seedall);
 	cout << "\n#include<iostream>\n#include<cstdio>\n";
-	for(i=0;i<6;i++)//调用函数库
+	for (i = 0; i < 6; i++)		// 调用函数库
 	{
-	    k=rand()%7;
-	    if(k!=j)
-	    {
-	    	if(k==0)
-	    	{
-	    		cout<<"#include<cstdlib>\n";
-	    		lib_y_or_n[0]=1;
-	    	}
-	    	else if(k==1)
-	    	{
-	    		cout<<"#include<cstring>\n";
-	    		lib_y_or_n[1]=1;
-	    	}
-	    	else if(k==2)
-	    	{
-	    		cout<<"#include<cmath>\n";
-	    		lib_y_or_n[2]=1;
-	    	}
-	    	else if(k==3)
-	    	{
-	    		cout<<"#include<ctime>\n";
-	    		lib_y_or_n[3]=1;
-	    	}
-	    	else if(k==4)
-	    	{
-	    		cout<<"#include<algorithm>\n";
-	    		lib_y_or_n[4]=1;
-	    	}
-	    	else if(k==5)
-	    	{
-	    		cout<<"#include<iomanip>\n";
-	    		lib_y_or_n[5]=1;
-	    	}
-	    }
-	    
-	    j=k;
-	    seedall=abs(seedall+666-j);//更新种子
-	    srand(seedall);
+		l = 1;
+		k = rand() % 7;
+		for (j = 0; j < i; j++)
+		{
+			if (k == h[j])
+			{
+				l = 0;
+			}
+		}
+		if (l == 1)
+		{
+			if (k == 0)
+			{
+				cout << "#include<cstdlib>\n";
+				lib_y_or_n[0] = 1;
+			}
+			else if (k == 1)
+			{
+				cout << "#include<cstring>\n";
+				lib_y_or_n[1] = 1;
+			}
+			else if (k == 2)
+			{
+				cout << "#include<cmath>\n";
+				lib_y_or_n[2] = 1;
+			}
+			else if (k == 3)
+			{
+				cout << "#include<ctime>\n";
+				lib_y_or_n[3] = 1;
+			}
+			else if (k == 4)
+			{
+				cout << "#include<algorithm>\n";
+				lib_y_or_n[4] = 1;
+			}
+			else if (k == 5)
+			{
+				cout << "#include<iomanip>\n";
+				lib_y_or_n[5] = 1;
+			}
+		}
+		h[i] = k;
+		seedall = abs(seedall + 666 - j);	// 更新种子
+		srand(seedall);
 	}
-	cout<<"using namespace std;\n";
-	seedall=seedall%64;//更新种子，防止溢出
+}
+
+int main()
+{
+	srand(time(NULL));//使运气和种子共同决定结果
+	k = rand() % 64;
+	memset(lib_y_or_n, 0, sizeof(lib_y_or_n));
+	cout << "seed:";
+	cin >> seedall;				// 输入最初种子
+	seedall = seedall * k;
+
+	lib_h();
+
+	cout << "using namespace std;\n";
+	seedall = seedall % 64;		// 更新种子，防止溢出
 	srand(seedall);
-	//这里还未完成
+	k = rand() % 10;
+	for (i = 0; i < k; i++)		// 自定义函数部分
+	{
+		j = rand() % 6;
+		if (j == 0)
+		{
+			cout << "void ";
+		}
+		else if (j == 1)
+		{
+			cout << "int ";
+		}
+		else if (j == 2)
+		{
+			cout << "double ";
+		}
+		else if (j == 3)
+		{
+			cout << "long long ";
+		}
+		else if (j == 4)
+		{
+			cout << "char ";
+		}
+		// 这里未完成
+
+	}
+	cout << "int main()\n{\n";	// 主函数部分
+	box();
+	cout << "return 0\n}";
 	return 0;
 }
