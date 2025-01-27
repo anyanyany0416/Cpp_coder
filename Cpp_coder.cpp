@@ -12,9 +12,12 @@ struct f_x_						// 自定义函数信息
 	int fc;						// 函数类型
 	char fname[10];				// 函数名称
 	char fre[10];				// 返回值
-	char fxname[5][10];			// 形参
+	char fxname[4][10];			// 形参
+	int fxc[4];					// 形参类型
 };
-int seedall, h[6], i, j = -1, k, l, m, n;
+f_x_ fx[10];
+char rstr[10];
+int seedall, h[6], i, j = -1, k, l, m, n, x, y, z;
 int lib_y_or_n[6];				// 标准库是否存在
 /* 
    6个标准库从0到5分别是
@@ -24,9 +27,46 @@ void box()						// 函数内容
 	// 这里未完成
 }
 
-char randstr()					// 实现随机字符串
+void randstr()					// 实现随机字符串
 {
-	// 这里未完成
+	int rx, ry, rz, ri;
+	seedall = abs(seedall - 114514) % 64 + time(NULL);
+	srand(seedall);
+	ry = rand() % 2;
+	if (ry == 0)
+	{
+		rz = rand() % 26;
+		rstr[0] = 'a' + rz;
+	}
+	else if (ry == 1)
+	{
+		rz = rand() % 26;
+		rstr[0] = 'A' + rz;
+	}
+	seedall = seedall % 64 + 6;
+	srand(seedall);
+	rx = rand() % 8 + 2;
+	for (ri = 1; ri < rx; ri++)
+	{
+		seedall = seedall + time(NULL);
+		srand(seedall);
+		ry = rand() % 3;
+		if (ry == 0)
+		{
+			rz = rand() % 26;
+			rstr[ri] = 'a' + rz;
+		}
+		else if (ry == 1)
+		{
+			rz = rand() % 26;
+			rstr[ri] = 'A' + rz;
+		}
+		else if (ry == 2)
+		{
+			rz = rand() % 10;
+			rstr[ri] = '0' + rz;
+		}
+	}
 }
 
 void lib_h()					// 函数库
@@ -85,7 +125,7 @@ void lib_h()					// 函数库
 
 int main()
 {
-	srand(time(NULL));//使运气和种子共同决定结果
+	srand(time(NULL));			// 使运气和种子共同决定结果
 	k = rand() % 64;
 	memset(lib_y_or_n, 0, sizeof(lib_y_or_n));
 	cout << "seed:";
@@ -97,10 +137,10 @@ int main()
 	cout << "using namespace std;\n";
 	seedall = seedall % 64;		// 更新种子，防止溢出
 	srand(seedall);
-	k = rand() % 10;
+	k = rand() % 9 + 1;
 	for (i = 0; i < k; i++)		// 自定义函数部分
 	{
-		j = rand() % 6;
+		j = rand() % 5;
 		if (j == 0)
 		{
 			cout << "void ";
@@ -121,11 +161,66 @@ int main()
 		{
 			cout << "char ";
 		}
-		// 这里未完成
+		fx[i].fc = j;
+		randstr();
+		strcpy(fx[i].fname, rstr);
+		cout << fx[i].fname << "(";
+		seedall = seedall + time(NULL);
+		srand(seedall);
+		n = rand() % 3 + 1;		// 形参
+		for (l = 0; l < n; l++)
+		{
+			x = rand() % 3;
+			if (x == 0)
+			{
+				cout << "int ";
+			}
+			else if (x == 1)
+			{
+				cout << "double ";
+			}
+			else
+			{
+				cout << "long long ";
+			}
+			fx[i].fxc[l] = x;
+			randstr();
+			strcpy(fx[i].fxname[l], rstr);
+			cout << fx[i].fxname[l] << "," ;
+		}
+		cout << "\b)\n{\n";
+		randstr();
+		strcpy(fx[i].fre, rstr);	// 返回值
+		if (j != 0)
+		{
+			if (j == 1)
+			{
+				cout << "int ";
+			}
+			else if (j == 2)
+			{
+				cout << "double ";
+			}
+			else if (j == 3)
+			{
+				cout << "long long ";
+			}
+			else if (j == 4)
+			{
+				cout << "char ";
+			}
+			cout << fx[i].fre << ";\n";
+		}
+		box();
+		if (fx[i].fc != 0)		// 返回返回值
+		{
+			cout << "return " << fx[i].fre << ";\n";
+		}
+		cout << "}\n";
 
 	}
 	cout << "int main()\n{\n";	// 主函数部分
 	box();
-	cout << "return 0\n}";
+	cout << "return 0;\n}";
 	return 0;
 }
