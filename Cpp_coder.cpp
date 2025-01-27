@@ -24,7 +24,7 @@ int lib_y_or_n[6];				// 标准库是否存在
    cstdlib,cstring,cmath,ctime,algorithm,iomanip; */
 void box()						// 函数内容
 {
-	// 这里未完成
+	// 测试阶段，暂无内容
 }
 
 void randstr()					// 实现随机字符串
@@ -220,7 +220,7 @@ int main()
 
 	}
 	cout << "int main()\n{\n";	// 主函数部分
-	box();
+	cout<<"hello, world";      //box();
 	cout << "return 0;\n}";
 	return 0;
 }
